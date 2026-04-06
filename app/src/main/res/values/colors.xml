@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- MANTENER (los usa el sistema internamente) -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- AGREGAR: Paleta SchedifyFCA azul institucional -->
+    <color name="primary">#1A3A6B</color>
+    <color name="primary_variant">#0D2547</color>
+    <color name="secondary">#2E6DB4</color>
+    <color name="accent">#4A90D9</color>
+
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#B00020</color>
+
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_background">#1A1A2E</color>
+    <color name="on_surface">#1A1A2E</color>
+
+    <color name="text_hint">#9E9E9E</color>
+    <color name="text_secondary">#5A6A7A</color>
+    <color name="divider">#E0E6ED</color>
+</resources>

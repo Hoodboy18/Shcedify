@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SchedifyFCA</string>
+
+    <!-- Login -->
+    <string name="login_welcome">¡Bienvenido!</string>
+    <string name="login_subtitle">Inicia sesión para continuar</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="btn_register">Registrarse</string>
+    <string name="btn_forgot_password">Restablecer contraseña</string>
+
+    <!-- Register -->
+    <string name="register_welcome">¡Bienvenido!</string>
+    <string name="register_subtitle">Regístrate para continuar</string>
+    <string name="hint_name">Nombre</string>
+    <string name="btn_register_action">Registrar</string>
+
+    <!-- Forgot Password -->
+    <string name="forgot_title">Recuperar contraseña</string>
+    <string name="forgot_subtitle">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña</string>
+    <string name="btn_send_link">Enviar enlace</string>
+    <string name="btn_back_login">Volver al inicio de sesión</string>
+
+    <!-- Personal Info -->
+    <string name="personal_info_title">Completa tu perfil</string>
+    <string name="personal_info_subtitle">Necesitamos algunos datos para personalizar tu experiencia</string>
+    <string name="hint_first_name">Nombre(s)</string>
+    <string name="hint_last_name">Apellidos</string>
+    <string name="hint_username">Nombre de usuario</string>
+    <string name="hint_phone">Teléfono</string>
+    <string name="hint_birthdate">Fecha de nacimiento</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="btn_skip">Omitir por ahora</string>
+</resources>

@@ -32,5 +32,5 @@
     <string name="hint_phone">Teléfono</string>
     <string name="hint_birthdate">Fecha de nacimiento</string>
     <string name="btn_continue">Continuar</string>
-    <string name="btn_skip">Omitir por ahora</string>
+    <string name="btn_skip">Cancelar</string>
 </resources>

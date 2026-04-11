@@ -24,10 +24,12 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="120dp"
+            android:layout_height="80dp"
             android:layout_marginTop="32dp"
             android:src="@mipmap/ic_launcher"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:contentDescription="Logo SchedifyFCA"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,27 +82,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="24dp">
-
-                <!-- Nombre -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_name"
-                    style="@style/MainTextInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_name"
-                    app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                    app:startIconTint="@color/primary"
-                    app:boxStrokeColor="@color/primary"
-                    app:hintTextColor="@color/primary">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:imeOptions="actionNext" />
-
-                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Correo -->
                 <com.google.android.material.textfield.TextInputLayout
@@ -159,12 +140,15 @@
                 <!-- Volver al login -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_back"
-                    style="@style/Widget.Material3.Button.TextButton"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/primary"
+                    android:textSize="16sp"
+                    android:minHeight="48dp"
+                    android:backgroundTint="@android:color/transparent"
                     android:text="@string/btn_back_login" />
 
             </LinearLayout>

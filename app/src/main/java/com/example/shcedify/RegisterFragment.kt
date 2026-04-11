@@ -28,7 +28,6 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Botón deshabilitado al inicio
         binding.btnRegister.isEnabled = false
 
         setupValidation()
@@ -51,25 +50,16 @@ class RegisterFragment : Fragment() {
             }
         }
 
-        binding.etName.addTextChangedListener(watcher)
         binding.etEmail.addTextChangedListener(watcher)
         binding.etPassword.addTextChangedListener(watcher)
     }
 
     private fun validateFields() {
-        val name = binding.etName.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString().trim()
 
-        val isNameValid = name.length >= 2
         val isEmailValid = isValidEmail(email)
         val isPasswordValid = password.length >= 8
-
-        if (name.isNotEmpty() && !isNameValid) {
-            binding.tilName.error = "Nombre muy corto"
-        } else {
-            binding.tilName.error = null
-        }
 
         if (email.isNotEmpty() && !isEmailValid) {
             binding.tilEmail.error = "Correo inválido"
@@ -84,8 +74,8 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnRegister.isEnabled =
-            name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() &&
-                    isNameValid && isEmailValid && isPasswordValid
+            email.isNotEmpty() && password.isNotEmpty() &&
+                    isEmailValid && isPasswordValid
     }
 
     private fun isValidEmail(email: String): Boolean {

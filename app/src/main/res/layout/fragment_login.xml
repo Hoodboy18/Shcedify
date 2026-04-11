@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- Header azul con ícono -->
+        <!-- Header azul -->
         <View
             android:id="@+id/header_bg"
             android:layout_width="0dp"
@@ -21,25 +21,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Ícono / Logo -->
+        <!-- Logo -->
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="48dp"
-            android:src="@android:drawable/ic_menu_agenda"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="32dp"
+            android:src="@mipmap/ic_launcher"
             android:contentDescription="Logo SchedifyFCA"
-            app:tint="@color/on_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Título -->
+        <!-- Bienvenido -->
         <TextView
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:text="@string/login_welcome"
             android:textColor="@color/on_primary"
             android:textSize="26sp"
@@ -61,7 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
-        <!-- Card con el formulario -->
+        <!-- Card formulario -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_form"
             android:layout_width="0dp"
@@ -85,14 +84,14 @@
                 <!-- Campo Correo -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_email"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email"
                     app:startIconDrawable="@android:drawable/ic_dialog_email"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary">
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_email"
@@ -100,20 +99,21 @@
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Campo Contraseña -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/hint_password"
                     app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary"
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -122,12 +122,13 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:imeOptions="actionDone" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Botón Ingresar -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_login"
-                    style="@style/SchedifyButton.Primary"
+                    style="@style/MainButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="24dp"
@@ -150,9 +151,10 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_register"
-                        style="@style/SchedifyButton.Text"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/primary"
                         android:text="@string/btn_register" />
 
                     <View
@@ -162,9 +164,10 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_forgot"
-                        style="@style/SchedifyButton.Text"
+                        style="@style/Widget.Material3.Button.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/primary"
                         android:text="@string/btn_forgot_password" />
 
                 </LinearLayout>

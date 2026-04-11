@@ -1,6 +1,9 @@
 package com.example.shcedify
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +28,43 @@ class ForgotPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Botón deshabilitado al inicio
+        binding.btnSend.isEnabled = false
+
+        setupValidation()
+
         binding.btnSend.setOnClickListener {
             // TODO: enviar correo de recuperación
+            // Simula envío exitoso y regresa al login
+            findNavController().popBackStack()
         }
 
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    private fun setupValidation() {
+        binding.etEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                validateFields()
+            }
+        })
+    }
+
+    private fun validateFields() {
+        val email = binding.etEmail.text.toString().trim()
+        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+
+        if (email.isNotEmpty() && !isEmailValid) {
+            binding.tilEmail.error = "Correo inválido"
+        } else {
+            binding.tilEmail.error = null
+        }
+
+        binding.btnSend.isEnabled = email.isNotEmpty() && isEmailValid
     }
 
     override fun onDestroyView() {

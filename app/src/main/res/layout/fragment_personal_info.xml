@@ -11,51 +11,54 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- Header -->
+        <!-- Header azul -->
         <View
             android:id="@+id/header_bg"
             android:layout_width="0dp"
-            android:layout_height="180dp"
+            android:layout_height="220dp"
             android:background="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Logo -->
         <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginTop="36dp"
-            android:src="@android:drawable/ic_menu_myplaces"
-            android:contentDescription="Perfil"
-            app:tint="@color/on_primary"
+            android:id="@+id/iv_logo"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="32dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="Logo SchedifyFCA"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Título -->
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="@string/personal_info_title"
             android:textColor="@color/on_primary"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_icon" />
+            app:layout_constraintTop_toBottomOf="@id/iv_logo" />
 
+        <!-- Subtítulo -->
         <TextView
             android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
             android:text="@string/personal_info_subtitle"
             android:textColor="@color/divider"
-            android:textSize="12sp"
+            android:textSize="13sp"
             android:gravity="center"
-            android:paddingHorizontal="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
@@ -84,14 +87,14 @@
                 <!-- Nombre(s) -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_first_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_first_name"
                     app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary">
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_first_name"
@@ -99,20 +102,21 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:imeOptions="actionNext" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Apellidos -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_last_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/hint_last_name"
                     app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary">
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_last_name"
@@ -120,20 +124,20 @@
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:imeOptions="actionNext" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Nombre de usuario -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_username"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/hint_username"
                     app:prefixText="@"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary">
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_username"
@@ -141,21 +145,22 @@
                         android:layout_height="wrap_content"
                         android:inputType="textNoSuggestions"
                         android:imeOptions="actionNext" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Teléfono -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_phone"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/hint_phone"
                     app:startIconDrawable="@android:drawable/ic_menu_call"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary"
-                    app:prefixText="+52 ">
+                    app:startIconTint="@color/primary"
+                    app:prefixText="+52 "
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_phone"
@@ -163,22 +168,24 @@
                         android:layout_height="wrap_content"
                         android:inputType="phone"
                         android:imeOptions="actionNext" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Fecha de nacimiento -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_birthdate"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/hint_birthdate"
                     app:startIconDrawable="@android:drawable/ic_menu_today"
-                    app:startIconTint="@color/secondary"
-                    app:boxStrokeColor="@color/secondary"
-                    app:hintTextColor="@color/secondary"
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
                     app:endIconMode="custom"
-                    app:endIconDrawable="@android:drawable/ic_menu_today">
+                    app:endIconDrawable="@android:drawable/ic_menu_today"
+                    app:endIconTint="@color/primary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_birthdate"
@@ -187,12 +194,13 @@
                         android:focusable="false"
                         android:hint="DD/MM/AAAA"
                         android:inputType="none" />
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Botón continuar -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_continue"
-                    style="@style/SchedifyButton.Primary"
+                    style="@style/MainButton"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="28dp"
@@ -201,11 +209,12 @@
                 <!-- Omitir -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_skip"
-                    style="@style/SchedifyButton.Text"
+                    style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="4dp"
+                    android:textColor="@color/primary"
                     android:text="@string/btn_skip" />
 
             </LinearLayout>

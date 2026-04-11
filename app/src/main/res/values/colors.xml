@@ -22,4 +22,6 @@
     <color name="text_hint">#9E9E9E</color>
     <color name="text_secondary">#5A6A7A</color>
     <color name="divider">#E0E6ED</color>
+
+    <color name="disabled">#9E9E9E</color>
 </resources>

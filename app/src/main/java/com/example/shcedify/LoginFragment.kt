@@ -34,8 +34,7 @@ class LoginFragment : Fragment() {
         setupValidation()
 
         binding.btnLogin.setOnClickListener {
-            // TODO: validar credenciales con backend
-            // Por ahora navega directo (simula login exitoso)
+            findNavController().navigate(R.id.action_login_to_home)
         }
 
         binding.btnRegister.setOnClickListener {

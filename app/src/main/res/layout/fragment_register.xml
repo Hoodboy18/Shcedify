@@ -21,44 +21,60 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Logo -->
+        <!-- Logo UNAM -->
         <ImageView
-            android:id="@+id/iv_logo"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="32dp"
-            android:src="@mipmap/ic_launcher"
+            android:id="@+id/iv_logo_unam"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/logos_blanco_unam"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:contentDescription="Logo SchedifyFCA"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="Logo UNAM"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Bienvenido -->
+        <!-- Logo FCA -->
+        <ImageView
+            android:id="@+id/iv_logo_fca"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="48dp"
+            android:src="@drawable/logos_blanco_fca"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:contentDescription="Logo FCA"
+            app:layout_constraintStart_toEndOf="@id/iv_logo_unam"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Título -->
         <TextView
             android:id="@+id/tv_welcome"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/register_welcome"
             android:textColor="@color/on_primary"
             android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo" />
+            app:layout_constraintTop_toBottomOf="@id/iv_logo_unam" />
 
         <!-- Subtítulo -->
         <TextView
             android:id="@+id/tv_subtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/register_subtitle"
             android:textColor="@color/divider"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
@@ -89,7 +105,6 @@
                     style="@style/MainTextInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:hint="@string/hint_email"
                     app:startIconDrawable="@android:drawable/ic_dialog_email"
                     app:startIconTint="@color/primary"

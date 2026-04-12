@@ -18,6 +18,12 @@
         <action
             android:id="@+id/action_login_to_forgot"
             app:destination="@id/forgotPasswordFragment" />
+
+        <action
+            android:id="@+id/action_login_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -41,6 +47,19 @@
         android:id="@+id/personalInfoFragment"
         android:name="com.example.shcedify.PersonalInfoFragment"
         android:label="Informacion personal"
-        tools:layout="@layout/fragment_personal_info" />
+        tools:layout="@layout/fragment_personal_info">
+
+        <action
+            android:id="@+id/action_personal_info_to_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.shcedify.HomeFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>

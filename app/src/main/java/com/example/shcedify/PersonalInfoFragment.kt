@@ -36,7 +36,7 @@ class PersonalInfoFragment : Fragment() {
         setupDatePicker()
 
         binding.btnContinue.setOnClickListener {
-            // TODO: guardar datos y navegar a la app principal
+            findNavController().navigate(R.id.action_personal_info_to_home)
         }
 
         binding.btnSkip.setOnClickListener {

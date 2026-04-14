@@ -16,12 +16,12 @@
     <string name="register_subtitle">Regístrate para continuar</string>
     <string name="hint_name">Nombre</string>
     <string name="btn_register_action">Registrar</string>
+    <string name="btn_back_login">Volver al inicio de sesión</string>
 
     <!-- Forgot Password -->
     <string name="forgot_title">Recuperar contraseña</string>
     <string name="forgot_subtitle">Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña</string>
     <string name="btn_send_link">Enviar enlace</string>
-    <string name="btn_back_login">Volver al inicio de sesión</string>
 
     <!-- Personal Info -->
     <string name="personal_info_title">Completa tu perfil</string>
@@ -33,4 +33,12 @@
     <string name="hint_birthdate">Fecha de nacimiento</string>
     <string name="btn_continue">Continuar</string>
     <string name="btn_skip">Cancelar</string>
+
+    <!-- Home -->
+    <string name="home_welcome">¡Bienvenido a SchedifyFCA!</string>
+    <string name="home_subtitle">Tu horario inteligente está en camino. Próximamente podrás gestionar tus materias aquí.</string>
+
+    <!-- Logos -->
+    <string name="logo_unam_desc">Logo UNAM</string>
+    <string name="logo_fca_desc">Logo FCA</string>
 </resources>

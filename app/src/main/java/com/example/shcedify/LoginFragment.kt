@@ -28,7 +28,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Botón deshabilitado al inicio
         binding.btnLogin.isEnabled = false
 
         setupValidation()

@@ -29,7 +29,6 @@ class PersonalInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Botón deshabilitado al inicio
         binding.btnContinue.isEnabled = false
 
         setupValidation()

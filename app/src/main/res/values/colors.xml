@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- MANTENER (los usa el sistema internamente) -->
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- AGREGAR: Paleta SchedifyFCA azul institucional -->
     <color name="primary">#1A3A6B</color>
     <color name="primary_variant">#0D2547</color>
     <color name="secondary">#2E6DB4</color>

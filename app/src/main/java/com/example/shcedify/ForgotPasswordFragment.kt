@@ -28,7 +28,6 @@ class ForgotPasswordFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Botón deshabilitado al inicio
         binding.btnSend.isEnabled = false
 
         setupValidation()

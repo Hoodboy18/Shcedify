@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shcedify.databinding.FragmentLoginBinding
 
@@ -15,6 +16,8 @@ class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +59,8 @@ class LoginFragment : Fragment() {
 
         binding.etEmail.addTextChangedListener(watcher)
         binding.etPassword.addTextChangedListener(watcher)
+
+        viewModel.requestLogin()
     }
 
     private fun validateFields() {
@@ -65,7 +70,6 @@ class LoginFragment : Fragment() {
         val isEmailValid = isValidEmail(email)
         val isPasswordValid = password.length >= 8
 
-        // Mostrar errores solo si el campo tiene texto
         if (email.isNotEmpty() && !isEmailValid) {
             binding.tilEmail.error = "Correo inválido"
         } else {

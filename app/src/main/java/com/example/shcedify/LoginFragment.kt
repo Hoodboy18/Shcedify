@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -19,12 +20,17 @@ class LoginFragment : Fragment() {
 
     private val viewModel by viewModels<SignInViewModel>()
 
+    private lateinit var communicator : FragmentCommunicator
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as FragmentCommunicator
+
+        communicator.manageLoader(true)
         return binding.root
     }
 

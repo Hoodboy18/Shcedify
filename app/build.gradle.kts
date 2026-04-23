@@ -49,4 +49,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.lottie)
     implementation(libs.firebaseBom)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
+
 }

@@ -1,5 +1,3 @@
-package com.example.shcedify.core
-
 import com.google.firebase.auth.FirebaseUser
 
 interface Authentication {

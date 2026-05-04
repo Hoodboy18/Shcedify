@@ -7,6 +7,7 @@
     <string name="login_subtitle">Inicia sesión para continuar</string>
     <string name="hint_email">Correo electrónico</string>
     <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar contraseña</string>
     <string name="btn_login">Ingresar</string>
     <string name="btn_register">Registrarse</string>
     <string name="btn_forgot_password">Restablecer contraseña</string>

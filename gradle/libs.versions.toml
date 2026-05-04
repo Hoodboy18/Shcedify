@@ -9,8 +9,9 @@ material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 lottie = "6.7.1"
-firebaseBom = "34.12.0"
 firebase = "4.4.4"
+firebaseBom = "34.12.0"
+coroutinesCore = "1.7.3"
 
 
 [libraries]
@@ -23,10 +24,12 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
-firebaseBom = { group = "com.goole.firebase", name = "firebase-bom", version.ref = "firebaseBom"}
-firebase-firestore = { group = "com.goole.firebase", name = "firebase-firestore"}
-firebase-auth = { group = "com.goole.firebase", name = "firebase-auth"}
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom"}
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore"}
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth"}
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-android-firebase = { id = "com.google.gms.google-services", version.ref = "firebase"}
+firebase = { id = "com.google.gms.google-services", version.ref = "firebase"}

@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.shcedify.RegisterFragment"
+        android:name="com.example.shcedify.signup.RegisterFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_register">
 

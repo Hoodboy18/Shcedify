@@ -143,6 +143,29 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Confirmar Contraseña -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_confirm_password"
+                    style="@style/MainTextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/hint_confirm_password"
+                    app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                    app:startIconTint="@color/primary"
+                    app:boxStrokeColor="@color/primary"
+                    app:hintTextColor="@color/primary"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <!-- Botón Registrar -->
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_register"

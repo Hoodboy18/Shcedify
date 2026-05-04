@@ -1,11 +1,11 @@
-package com.example.shcedify
+package com.example.shcedify.signup
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,21 +13,23 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.core.ResponseService
-import com.example.shcedify.databinding.FragmentLoginBinding
+import com.example.shcedify.databinding.FragmentRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import com.example.shcedify.R
 
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+
+class RegisterFragment : Fragment() {
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<SignInViewModel>()
+    private val viewModel by viewModels<RegisterViewModel>()
     private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         communicator = requireActivity() as FragmentCommunicator
         setupValidation()
         setupClickListeners()
@@ -36,50 +38,50 @@ class LoginFragment : Fragment() {
     }
 
     private fun setupValidation() {
-        binding.btnLogin.isEnabled = false
+        binding.btnRegister.isEnabled = false
         binding.etEmail.addTextChangedListener { validateAndEnable() }
         binding.etPassword.addTextChangedListener { validateAndEnable() }
+        binding.etConfirmPassword.addTextChangedListener { validateAndEnable() }
     }
 
     private fun validateAndEnable() {
         val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString().trim()
+        val pass = binding.etPassword.text.toString().trim()
+        val confirm = binding.etConfirmPassword.text.toString().trim()
 
         binding.tilEmail.error = viewModel.validateEmail(email)
-        binding.tilPassword.error = viewModel.validatePassword(password)
-        binding.btnLogin.isEnabled = viewModel.isLoginFormValid(email, password)
+        binding.tilPassword.error = viewModel.validatePassword(pass)
+        binding.tilConfirmPassword.error = viewModel.validateConfirmPassword(pass, confirm)
+        binding.btnRegister.isEnabled = viewModel.isRegisterFormValid(email, pass, confirm)
     }
 
     private fun setupClickListeners() {
-        binding.btnLogin.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
-            viewModel.requestLogin(email, password)
+            viewModel.requestSignUp(email, password)
         }
-        binding.btnRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_register)
-        }
-        binding.btnForgot.setOnClickListener {
-            findNavController().navigate(R.id.action_login_to_forgot)
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.signInState.collect { state ->
+                viewModel.registerState.collect { state ->
                     when (state) {
                         is ResponseService.Loading -> {
                             communicator.manageLoader(true)
-                            binding.btnLogin.isEnabled = false
+                            binding.btnRegister.isEnabled = false
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            findNavController().navigate(R.id.action_login_to_home)
+                            findNavController().navigate(R.id.action_register_to_personal_info)
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
-                            binding.btnLogin.isEnabled = true
+                            binding.btnRegister.isEnabled = true
                             Snackbar.make(binding.root, state.error,
                                 Snackbar.LENGTH_LONG).show()
                         }

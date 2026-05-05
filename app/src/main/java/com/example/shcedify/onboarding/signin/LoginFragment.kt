@@ -1,16 +1,18 @@
-package com.example.shcedify
+package com.example.shcedify.onboarding.signin
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.shcedify.R
+import com.example.shcedify.onboarding.signin.SignInViewModel
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentLoginBinding
@@ -75,7 +77,11 @@ class LoginFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            findNavController().navigate(R.id.action_login_to_home)
+                            val intent = android.content.Intent(requireContext(),
+                                com.example.shcedify.home.HomeActivity::class.java)
+                            intent.flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
+                                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)

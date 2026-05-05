@@ -1,4 +1,4 @@
-package com.example.shcedify.signup
+package com.example.shcedify.onboarding.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater

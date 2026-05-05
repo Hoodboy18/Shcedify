@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/materiaFragment">
+
+    <fragment
+        android:id="@+id/materiaFragment"
+        android:name="com.example.shcedify.home.materias.materiaFragment"
+        android:label="Materias"
+        tools:layout="@layout/fragment_materia" />
+
+    <fragment
+        android:id="@+id/horarioFragment"
+        android:name="com.example.shcedify.home.horario.HorarioFragment"
+        android:label="Horario"
+        tools:layout="@layout/fragment_horario" />
+
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.shcedify.home.account.accountFragment"
+        android:label="Cuenta"
+        tools:layout="@layout/fragment_account" />
+
+</navigation>

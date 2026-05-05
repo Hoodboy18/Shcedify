@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/materiaFragment"
+        android:icon="@drawable/materia_ic"
+        android:title="Materias"/>
+    <item
+        android:id="@+id/horarioFragment"
+        android:icon="@drawable/horario_ic"
+        android:title="Horario"/>
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/account_ic"
+        android:title="Cuenta"/>
+</menu>

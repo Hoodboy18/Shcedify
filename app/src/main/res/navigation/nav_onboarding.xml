@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.shcedify.LoginFragment"
+        android:name="com.example.shcedify.onboarding.signin.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
 
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.shcedify.signup.RegisterFragment"
+        android:name="com.example.shcedify.onboarding.signup.RegisterFragment"
         android:label="Registro"
         tools:layout="@layout/fragment_register">
 
@@ -39,13 +39,13 @@
 
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.shcedify.ForgotPasswordFragment"
+        android:name="com.example.shcedify.onboarding.forgot.ForgotPasswordFragment"
         android:label="Recuperar contrasena"
         tools:layout="@layout/fragment_forgot_password" />
 
     <fragment
         android:id="@+id/personalInfoFragment"
-        android:name="com.example.shcedify.PersonalInfoFragment"
+        android:name="com.example.shcedify.onboarding.personal.PersonalInfoFragment"
         android:label="Informacion personal"
         tools:layout="@layout/fragment_personal_info">
 

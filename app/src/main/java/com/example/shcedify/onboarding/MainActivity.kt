@@ -1,7 +1,7 @@
-package com.example.shcedify
+package com.example.shcedify.onboarding
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.databinding.ActivityMainBinding

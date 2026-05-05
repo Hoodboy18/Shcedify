@@ -1,4 +1,4 @@
-package com.example.shcedify
+package com.example.shcedify.onboarding.forgot
 
 import android.os.Bundle
 import android.text.Editable

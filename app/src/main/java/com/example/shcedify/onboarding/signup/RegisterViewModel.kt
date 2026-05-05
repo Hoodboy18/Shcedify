@@ -1,4 +1,4 @@
-package com.example.shcedify.signup
+package com.example.shcedify.onboarding.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

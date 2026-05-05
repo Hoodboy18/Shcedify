@@ -1,11 +1,9 @@
-package com.example.shcedify
+package com.example.shcedify.onboarding.signin
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shcedify.core.AuthRepository
-import com.example.shcedify.core.Authentication
 import com.example.shcedify.core.ResponseService
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow

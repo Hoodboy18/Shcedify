@@ -1,22 +1,32 @@
 package com.example.shcedify.onboarding.personal
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.shcedify.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.shcedify.core.FragmentCommunicator
+import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentPersonalInfoBinding
+import com.example.shcedify.home.HomeActivity
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class PersonalInfoFragment : Fragment() {
 
     private var _binding: FragmentPersonalInfoBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<PersonalInfoViewModel>()
+    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,99 +34,107 @@ class PersonalInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as FragmentCommunicator
+        setupValidation()
+        setupDatePicker()
+        setupClickListeners()
+        observeState()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.btnContinue.isEnabled = false
-
-        setupValidation()
-        setupDatePicker()
-
-        binding.btnContinue.setOnClickListener {
-            findNavController().navigate(R.id.action_personal_info_to_home)
-        }
-
-        binding.btnSkip.setOnClickListener {
-            // TODO: navegar a la app principal sin guardar
-        }
-    }
-
     private fun setupValidation() {
-        val watcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                validateFields()
-            }
-        }
-
-        binding.etFirstName.addTextChangedListener(watcher)
-        binding.etLastName.addTextChangedListener(watcher)
-        binding.etUsername.addTextChangedListener(watcher)
-        binding.etPhone.addTextChangedListener(watcher)
-        binding.etBirthdate.addTextChangedListener(watcher)
+        binding.btnContinue.isEnabled = false
+        binding.etFirstName.addTextChangedListener { validateAndEnable() }
+        binding.etLastName.addTextChangedListener { validateAndEnable() }
+        binding.etUsername.addTextChangedListener { validateAndEnable() }
+        binding.etPhone.addTextChangedListener { validateAndEnable() }
+        binding.etBirthdate.addTextChangedListener { validateAndEnable() }
     }
 
-    private fun setupDatePicker() {
-        binding.etBirthdate.setOnClickListener { showDatePicker() }
-        binding.tilBirthdate.setEndIconOnClickListener { showDatePicker() }
-    }
-
-    private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        DatePickerDialog(
-            requireContext(),
-            { _, year, month, day ->
-                binding.etBirthdate.setText(
-                    String.format("%02d/%02d/%04d", day, month + 1, year)
-                )
-            },
-            calendar.get(Calendar.YEAR) - 18,
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun validateFields() {
+    private fun validateAndEnable() {
         val firstName = binding.etFirstName.text.toString().trim()
         val lastName = binding.etLastName.text.toString().trim()
         val username = binding.etUsername.text.toString().trim()
         val phone = binding.etPhone.text.toString().trim()
-        val birthdate = binding.etBirthdate.text.toString().trim()
+        val birthDate = binding.etBirthdate.text.toString().trim()
 
-        if (firstName.isNotEmpty() && firstName.length < 2) {
-            binding.tilFirstName.error = "Nombre muy corto"
-        } else {
-            binding.tilFirstName.error = null
-        }
-
-        if (lastName.isNotEmpty() && lastName.length < 2) {
-            binding.tilLastName.error = "Apellido muy corto"
-        } else {
-            binding.tilLastName.error = null
-        }
-
-        if (username.isNotEmpty() && username.length < 3) {
-            binding.tilUsername.error = "Mínimo 3 caracteres"
-        } else {
-            binding.tilUsername.error = null
-        }
-
-        if (phone.isNotEmpty() && phone.length < 10) {
-            binding.tilPhone.error = "Teléfono inválido"
-        } else {
-            binding.tilPhone.error = null
-        }
+        binding.tilFirstName.error = viewModel.validateFirstName(firstName)
+        binding.tilLastName.error = viewModel.validateLastName(lastName)
+        binding.tilUsername.error = viewModel.validateUsername(username)
+        binding.tilPhone.error = viewModel.validatePhone(phone)
+        binding.tilBirthdate.error = viewModel.validateBirthDate(birthDate)
 
         binding.btnContinue.isEnabled =
-            firstName.length >= 2 &&
-                    lastName.length >= 2 &&
-                    username.length >= 3 &&
-                    phone.length >= 10 &&
-                    birthdate.isNotEmpty()
+            viewModel.isFormValid(firstName, lastName, username, phone, birthDate)
+    }
+
+    private fun setupDatePicker() {
+        val showPicker = {
+            val cal = Calendar.getInstance()
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, day ->
+                    binding.etBirthdate.setText("%02d/%02d/%04d".format(day, month + 1, year))
+                },
+                cal.get(Calendar.YEAR) - 18,
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).apply {
+                datePicker.maxDate = System.currentTimeMillis()
+            }.show()
+        }
+        binding.etBirthdate.setOnClickListener { showPicker() }
+        binding.tilBirthdate.setEndIconOnClickListener { showPicker() }
+    }
+
+    private fun setupClickListeners() {
+        binding.btnContinue.setOnClickListener {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            if (uid == null) {
+                Snackbar.make(binding.root, "Sesión inválida", Snackbar.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            viewModel.saveProfile(
+                uid = uid,
+                firstName = binding.etFirstName.text.toString().trim(),
+                lastName = binding.etLastName.text.toString().trim(),
+                username = binding.etUsername.text.toString().trim(),
+                phone = binding.etPhone.text.toString().trim(),
+                birthDate = binding.etBirthdate.text.toString().trim()
+            )
+        }
+        binding.btnSkip.setOnClickListener {
+            val intent = Intent(requireContext(), HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
+    }
+
+    private fun observeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.saveState.collect { state ->
+                    when (state) {
+                        is ResponseService.Loading -> {
+                            communicator.manageLoader(true)
+                            binding.btnContinue.isEnabled = false
+                        }
+                        is ResponseService.Success -> {
+                            communicator.manageLoader(false)
+                            val intent = Intent(requireContext(), HomeActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
+                        is ResponseService.Error -> {
+                            communicator.manageLoader(false)
+                            binding.btnContinue.isEnabled = true
+                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
+                        }
+                        null -> Unit
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

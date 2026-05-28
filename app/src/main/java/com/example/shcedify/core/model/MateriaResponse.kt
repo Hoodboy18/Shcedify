@@ -1,4 +1,4 @@
-package com.example.shcedify.home.materias.model
+package com.example.shcedify.core.model
 
 import com.google.gson.annotations.SerializedName
 

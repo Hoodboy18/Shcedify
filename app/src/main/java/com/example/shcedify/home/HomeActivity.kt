@@ -9,8 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.shcedify.R
 import com.example.shcedify.databinding.ActivityHomeBinding
+import com.example.shcedify.core.FragmentCommunicator
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), FragmentCommunicator {
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,5 +32,9 @@ class HomeActivity : AppCompatActivity() {
             .findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
         binding.bottomNavigationView.setupWithNavController(navController)
+    }
+
+    override fun manageLoader(isVisible: Boolean) {
+
     }
 }

@@ -22,6 +22,6 @@ object ApiClient {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(HorarioApi::class.java)
+            .create(HorarioAPI::class.java)
     }
 }

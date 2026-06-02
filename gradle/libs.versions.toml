@@ -38,3 +38,4 @@ okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor",
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 firebase = { id = "com.google.gms.google-services", version.ref = "firebase"}
+kotlin-parcelize = { id = "kotlin-parcelize"}

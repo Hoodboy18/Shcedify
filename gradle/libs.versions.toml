@@ -1,5 +1,6 @@
 [versions]
-agp = "9.0.0"
+agp = "8.13.2"
+kotlin = "2.0.0"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -14,7 +15,7 @@ firebaseBom = "34.12.0"
 coroutinesCore = "1.7.3"
 retrofit = "2.11.0"
 okhttpLoggin = "4.12.0"
-
+glide = "4.16.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,8 +35,10 @@ coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
 okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLoggin"}
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 firebase = { id = "com.google.gms.google-services", version.ref = "firebase"}
-kotlin-parcelize = { id = "kotlin-parcelize"}
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }

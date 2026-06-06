@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.shcedify.R
@@ -35,6 +36,6 @@ class HomeActivity : AppCompatActivity(), FragmentCommunicator {
     }
 
     override fun manageLoader(isVisible: Boolean) {
-
+        binding.loaderView.isVisible = isVisible
     }
 }

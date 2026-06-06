@@ -9,7 +9,18 @@
         android:id="@+id/materiaFragment"
         android:name="com.example.shcedify.home.materias.materiaFragment"
         android:label="Materias"
-        tools:layout="@layout/fragment_materia" />
+        tools:layout="@layout/fragment_materia">
+
+        <action
+            android:id="@+id/action_materiaFragment_to_materiaDetailFragment"
+            app:destination="@id/materiaDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/materiaDetailFragment"
+        android:name="com.example.shcedify.home.materias.MateriaDetailFragment"
+        android:label="Detalle de Materia"
+        tools:layout="@layout/fragment_materia_detail" />
 
     <fragment
         android:id="@+id/horarioFragment"

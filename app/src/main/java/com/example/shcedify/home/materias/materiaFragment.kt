@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shcedify.R
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentMateriaBinding
@@ -22,7 +24,10 @@ class materiaFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<MateriasViewModel>()
     private lateinit var communicator: FragmentCommunicator
-    private val adapter = MateriasAdapter { materia -> }
+    private val adapter = MateriasAdapter { materia ->
+        val bundle = Bundle().apply { putParcelable("materia", materia) }
+        findNavController().navigate(R.id.action_materiaFragment_to_materiaDetailFragment, bundle)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

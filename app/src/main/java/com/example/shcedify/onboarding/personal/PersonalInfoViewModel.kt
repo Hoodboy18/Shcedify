@@ -24,16 +24,16 @@ class PersonalInfoViewModel : ViewModel() {
     }
 
     fun validateLastName(value: String): String? {
-        if (value.isBlank()) return "Los apellidos son requeridos"
+        if (value.isBlank()) return "El primer apellido es requerido"
         if (value.length < 2) return "Mínimo 2 caracteres"
         if (!value.all { it.isLetter() || it.isWhitespace() }) return "Solo se permiten letras"
         return null
     }
 
-    fun validateUsername(value: String): String? {
-        if (value.isBlank()) return "El usuario es requerido"
-        if (value.length < 4) return "Mínimo 4 caracteres"
-        if (!value.matches(Regex("^[a-zA-Z0-9_.]+\$"))) return "Solo letras, números, _ y ."
+    fun validateNumCuenta(value: String): String? {
+        if (value.isBlank()) return "El número de cuenta es requerido"
+        if (!value.all { it.isDigit() }) return "Solo números"
+        if (value.length != 9) return "Debe tener 9 dígitos"
         return null
     }
 
@@ -49,18 +49,34 @@ class PersonalInfoViewModel : ViewModel() {
         return null
     }
 
-    fun isFormValid(firstName: String, lastName: String, username: String, phone: String, birthDate: String): Boolean {
+    fun isFormValid(
+        firstName: String, lastName: String,
+        numCuenta: String, phone: String, birthDate: String
+    ): Boolean {
         return validateFirstName(firstName) == null &&
                 validateLastName(lastName) == null &&
-                validateUsername(username) == null &&
+                validateNumCuenta(numCuenta) == null &&
                 validatePhone(phone) == null &&
                 validateBirthDate(birthDate) == null
     }
 
-    fun saveProfile(uid: String, firstName: String, lastName: String, username: String, phone: String, birthDate: String) {
+    fun saveProfile(
+        uid: String, firstName: String, secondName: String,
+        lastName: String, secondLastName: String,
+        numCuenta: String, phone: String, birthDate: String
+    ) {
         viewModelScope.launch {
             _saveState.value = ResponseService.Loading
-            val user = UserProfile(id = uid, firstName = firstName, lastName = lastName, userName = username, phone = phone, birthDate = birthDate)
+            val user = UserProfile(
+                id = uid,
+                firstName = firstName,
+                secondName = secondName,
+                lastName = lastName,
+                secondLastName = secondLastName,
+                numCuenta = numCuenta,
+                phone = phone,
+                birthDate = birthDate
+            )
             _saveState.value = repository.saveUserInfo(user)
         }
     }

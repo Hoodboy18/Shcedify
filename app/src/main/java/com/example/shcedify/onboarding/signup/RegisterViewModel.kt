@@ -1,5 +1,6 @@
 package com.example.shcedify.onboarding.signup
 
+import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.shcedify.core.AuthRepository
@@ -10,16 +11,23 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel: ViewModel() {
+class RegisterViewModel : ViewModel() {
     private val authRepository = AuthRepository()
 
     private val _registerState = MutableStateFlow<ResponseService<FirebaseUser>?>(null)
     val registerState: StateFlow<ResponseService<FirebaseUser>?> = _registerState.asStateFlow()
 
+    fun validateEmail(email: String): String? {
+        if (email.isBlank()) return "El correo es requerido"
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) return "Correo inválido"
+        return null
+    }
 
-    // --- Validación ---
-    fun validateEmail(email: String): String? { /* igual que SignInViewModel */ return null }
-    fun validatePassword(password: String): String? { /* igual */ return null }
+    fun validatePassword(password: String): String? {
+        if (password.isBlank()) return "La contraseña es requerida"
+        if (password.length < 8) return "Mínimo 8 caracteres"
+        return null
+    }
 
     fun validateConfirmPassword(password: String, confirm: String): String? {
         if (confirm.isBlank()) return "Confirma tu contraseña"
@@ -33,7 +41,6 @@ class RegisterViewModel: ViewModel() {
                 validateConfirmPassword(password, confirm) == null
     }
 
-    // --- Operación de registro ---
     fun requestSignUp(email: String, password: String) {
         viewModelScope.launch {
             _registerState.value = ResponseService.Loading

@@ -175,7 +175,6 @@
                     android:textColor="@color/text_secondary"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- Email -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -208,7 +207,6 @@
                     android:layout_height="0.5dp"
                     android:background="@color/divider"/>
 
-                <!-- Teléfono -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -239,7 +237,6 @@
                     android:layout_height="0.5dp"
                     android:background="@color/divider"/>
 
-                <!-- Fecha nacimiento -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -268,6 +265,73 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Card horario guardado -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHorario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="3dp"
+            app:cardBackgroundColor="@color/surface">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MI HORARIO SELECCIONADO"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvHorarioDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="12dp"/>
+
+                <android.widget.HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:id="@+id/containerGridHorario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"/>
+
+                </android.widget.HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MATERIAS INSCRITAS"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="12dp"/>
+
+                <LinearLayout
+                    android:id="@+id/containerMateriasHorario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Botón cerrar sesión -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
@@ -286,73 +350,4 @@
             app:backgroundTint="@android:color/transparent"/>
 
     </LinearLayout>
-
-    <!-- Card horario guardado -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardHorario"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="12dp"
-        android:visibility="gone"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/surface">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MI HORARIO SELECCIONADO"
-                android:textSize="10sp"
-                android:letterSpacing="0.15"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="4dp"/>
-
-            <TextView
-                android:id="@+id/tvHorarioDescripcion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="12dp"/>
-
-            <!-- Grid del horario -->
-            <android.widget.HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:id="@+id/containerGridHorario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-            </android.widget.HorizontalScrollView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MATERIAS INSCRITAS"
-                android:textSize="10sp"
-                android:letterSpacing="0.15"
-                android:textColor="@color/text_secondary"
-                android:layout_marginBottom="12dp"/>
-
-            <LinearLayout
-                android:id="@+id/containerMateriasHorario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
 </ScrollView>

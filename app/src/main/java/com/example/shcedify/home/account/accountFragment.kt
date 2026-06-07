@@ -74,12 +74,15 @@ class accountFragment : Fragment() {
                     }
                     binding.tvInitials.text = initials.ifEmpty { "?" }
 
-                    // Cargar horario guardado si existe
-                    @Suppress("UNCHECKED_CAST")
-                    val horarioData = doc.get("horarioGuardado") as? List<Map<String, Any>>
-                    val descripcion = doc.getString("descripcion") ?: ""
-                    if (!horarioData.isNullOrEmpty()) {
-                        mostrarHorarioGuardado(horarioData, descripcion)
+                    try {
+                        @Suppress("UNCHECKED_CAST")
+                        val horarioData = doc.get("horarioGuardado") as? List<Map<String, Any>>
+                        val descripcion = doc.getString("descripcion") ?: ""
+                        if (!horarioData.isNullOrEmpty()) {
+                            mostrarHorarioGuardado(horarioData, descripcion)
+                        }
+                    } catch (e: Exception) {
+
                     }
                 }
             }

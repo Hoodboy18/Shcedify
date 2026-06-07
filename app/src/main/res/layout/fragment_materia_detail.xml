@@ -11,11 +11,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header con gradiente -->
+        <!-- Header -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/primary">
+            android:layout_height="wrap_content"
+            android:background="@color/primary"
+            android:paddingBottom="24dp">
 
             <ImageButton
                 android:id="@+id/btnBack"
@@ -28,75 +29,123 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <!-- Chip de importancia -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipImportante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="⭐ Importante"
+                android:checkable="true"
+                android:textColor="@color/on_primary"
+                app:chipBackgroundColor="#33FFFFFF"
+                app:chipStrokeColor="#80FFFFFF"
+                app:chipStrokeWidth="1dp"
+                app:checkedIconTint="@color/on_primary"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <TextView
                 android:id="@+id/tvNombre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="8dp"
                 android:textColor="@color/on_primary"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:lineSpacingMultiplier="1.2"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnBack"/>
+
+            <TextView
+                android:id="@+id/tvDescripcion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="8dp"
+                android:textColor="#B0FFFFFF"
+                android:textSize="13sp"
+                android:lineSpacingMultiplier="1.3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNombre"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Chips de info rápida -->
-        <LinearLayout
+        <!-- Chips info rápida -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:scrollbars="none"
             android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp">
+            android:paddingVertical="12dp">
 
-            <TextView
-                android:id="@+id/tvClave"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_chip_creditos"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="12sp"
-                android:textColor="@color/primary"
-                android:textStyle="bold"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvCreditos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_creditos"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="12sp"
-                android:textColor="@color/primary"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvClave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_chip_creditos"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/tvSemestre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/bg_chip_creditos"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="4dp"
-                android:textSize="12sp"
-                android:textColor="@color/primary"
-                android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvCreditos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_creditos"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvSemestre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_creditos"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvModalidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_chip_creditos"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <!-- Card área -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="3dp"
             app:cardBackgroundColor="@color/surface">
@@ -104,35 +153,69 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="ÁREA"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.15"
-                    android:textColor="@color/text_secondary"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvArea"
-                    android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ÁREA"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.15"
+                        android:textColor="@color/text_secondary"/>
+
+                    <TextView
+                        android:id="@+id/tvArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/on_surface"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/on_surface"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TIPO"
+                        android:textSize="10sp"
+                        android:letterSpacing="0.15"
+                        android:textColor="@color/text_secondary"/>
+
+                    <TextView
+                        android:id="@+id/tvTipo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/on_surface"/>
+
+                </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Card grupo -->
+        <!-- Card grupos (contenedor dinámico) -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="3dp"
             app:cardBackgroundColor="@color/surface">
@@ -146,129 +229,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="INFORMACIÓN DEL GRUPO"
+                    android:text="GRUPOS DISPONIBLES"
                     android:textSize="10sp"
                     android:letterSpacing="0.15"
                     android:textColor="@color/text_secondary"
                     android:layout_marginBottom="12dp"/>
 
                 <LinearLayout
+                    android:id="@+id/containerGrupos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Profesor"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvProfesor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Grupo"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvGrupo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Cupo"
-                        android:textSize="12sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvCupo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"/>
-
-                </LinearLayout>
+                    android:orientation="vertical"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Card sesiones -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- Botón agregar al horario -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAgregar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/surface">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="SESIONES"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.15"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="12dp"/>
-
-                <TextView
-                    android:id="@+id/tvSesiones"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="@color/on_surface"
-                    android:lineSpacingExtra="6dp"
-                    android:fontFamily="monospace"/>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            android:layout_marginBottom="32dp"
+            android:text="Agregar a mi selección"
+            android:textSize="16sp"
+            app:cornerRadius="14dp"
+            app:backgroundTint="@color/primary"/>
 
     </LinearLayout>
 </ScrollView>

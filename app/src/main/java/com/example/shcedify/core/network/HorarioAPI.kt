@@ -5,7 +5,7 @@ import com.example.shcedify.core.model.MateriaResponse
 import retrofit2.Response
 
 interface HorarioAPI {
-    @GET("9c95b9dbe5424b85ae131e631d3d3a82")
+    @GET("3874fbe50e1c48f08d427e600f16aaae")
     suspend fun getMaterias(
 
     ): Response<MateriaResponse>

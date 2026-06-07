@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,6 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentPersonalInfoBinding
+import com.example.shcedify.home.HomeActivity
 import com.example.shcedify.onboarding.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -34,11 +36,28 @@ class PersonalInfoFragment : Fragment() {
     ): View {
         _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
         communicator = requireActivity() as FragmentCommunicator
+        setupCarreraDropdown()
         setupValidation()
         setupDatePicker()
         setupClickListeners()
         observeState()
         return binding.root
+    }
+
+    private fun setupCarreraDropdown() {
+        val carreras = listOf(
+            "Administración",
+            "Contaduría",
+            "Informática",
+            "Negocios Internacionales"
+        )
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_dropdown_item_1line,
+            carreras
+        )
+        binding.etCarrera.setAdapter(adapter)
+        binding.etCarrera.addTextChangedListener { validateAndEnable() }
     }
 
     private fun setupValidation() {
@@ -51,20 +70,22 @@ class PersonalInfoFragment : Fragment() {
     }
 
     private fun validateAndEnable() {
-        val firstName  = binding.etFirstName.text.toString().trim()
-        val lastName   = binding.etLastName.text.toString().trim()
-        val numCuenta  = binding.etNumCuenta.text.toString().trim()
-        val phone      = binding.etPhone.text.toString().trim()
-        val birthDate  = binding.etBirthdate.text.toString().trim()
+        val firstName = binding.etFirstName.text.toString().trim()
+        val lastName  = binding.etLastName.text.toString().trim()
+        val numCuenta = binding.etNumCuenta.text.toString().trim()
+        val phone     = binding.etPhone.text.toString().trim()
+        val birthDate = binding.etBirthdate.text.toString().trim()
+        val carrera   = binding.etCarrera.text.toString().trim()
 
         binding.tilFirstName.error  = viewModel.validateFirstName(firstName)
         binding.tilLastName.error   = viewModel.validateLastName(lastName)
         binding.tilNumCuenta.error  = viewModel.validateNumCuenta(numCuenta)
         binding.tilPhone.error      = viewModel.validatePhone(phone)
         binding.tilBirthdate.error  = viewModel.validateBirthDate(birthDate)
+        binding.tilCarrera.error    = viewModel.validateCarrera(carrera)
 
         binding.btnContinue.isEnabled =
-            viewModel.isFormValid(firstName, lastName, numCuenta, phone, birthDate)
+            viewModel.isFormValid(firstName, lastName, numCuenta, phone, birthDate, carrera)
     }
 
     private fun setupDatePicker() {
@@ -92,14 +113,15 @@ class PersonalInfoFragment : Fragment() {
                 return@setOnClickListener
             }
             viewModel.saveProfile(
-                uid        = uid,
-                firstName  = binding.etFirstName.text.toString().trim(),
-                secondName = binding.etSecondName.text.toString().trim(),
-                lastName   = binding.etLastName.text.toString().trim(),
+                uid            = uid,
+                firstName      = binding.etFirstName.text.toString().trim(),
+                secondName     = binding.etSecondName.text.toString().trim(),
+                lastName       = binding.etLastName.text.toString().trim(),
                 secondLastName = binding.etSecondLastName.text.toString().trim(),
-                numCuenta  = binding.etNumCuenta.text.toString().trim(),
-                phone      = binding.etPhone.text.toString().trim(),
-                birthDate  = binding.etBirthdate.text.toString().trim()
+                numCuenta      = binding.etNumCuenta.text.toString().trim(),
+                carrera        = binding.etCarrera.text.toString().trim(),
+                phone          = binding.etPhone.text.toString().trim(),
+                birthDate      = binding.etBirthdate.text.toString().trim()
             )
         }
 
@@ -128,9 +150,7 @@ class PersonalInfoFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            // Perfil guardado exitosamente → ir al home
-                            val intent = Intent(requireContext(),
-                                com.example.shcedify.home.HomeActivity::class.java)
+                            val intent = Intent(requireContext(), HomeActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)

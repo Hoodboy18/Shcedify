@@ -19,14 +19,12 @@ class PersonalInfoViewModel : ViewModel() {
     fun validateFirstName(value: String): String? {
         if (value.isBlank()) return "El nombre es requerido"
         if (value.length < 2) return "Mínimo 2 caracteres"
-        if (!value.all { it.isLetter() || it.isWhitespace() }) return "Solo se permiten letras"
         return null
     }
 
     fun validateLastName(value: String): String? {
         if (value.isBlank()) return "El primer apellido es requerido"
         if (value.length < 2) return "Mínimo 2 caracteres"
-        if (!value.all { it.isLetter() || it.isWhitespace() }) return "Solo se permiten letras"
         return null
     }
 
@@ -49,33 +47,42 @@ class PersonalInfoViewModel : ViewModel() {
         return null
     }
 
+    fun validateCarrera(value: String): String? {
+        if (value.isBlank()) return "Selecciona tu carrera"
+        return null
+    }
+
     fun isFormValid(
         firstName: String, lastName: String,
-        numCuenta: String, phone: String, birthDate: String
+        numCuenta: String, phone: String,
+        birthDate: String, carrera: String
     ): Boolean {
         return validateFirstName(firstName) == null &&
                 validateLastName(lastName) == null &&
                 validateNumCuenta(numCuenta) == null &&
                 validatePhone(phone) == null &&
-                validateBirthDate(birthDate) == null
+                validateBirthDate(birthDate) == null &&
+                validateCarrera(carrera) == null
     }
 
     fun saveProfile(
         uid: String, firstName: String, secondName: String,
         lastName: String, secondLastName: String,
-        numCuenta: String, phone: String, birthDate: String
+        numCuenta: String, carrera: String,
+        phone: String, birthDate: String
     ) {
         viewModelScope.launch {
             _saveState.value = ResponseService.Loading
             val user = UserProfile(
-                id = uid,
-                firstName = firstName,
-                secondName = secondName,
-                lastName = lastName,
+                id             = uid,
+                firstName      = firstName,
+                secondName     = secondName,
+                lastName       = lastName,
                 secondLastName = secondLastName,
-                numCuenta = numCuenta,
-                phone = phone,
-                birthDate = birthDate
+                numCuenta      = numCuenta,
+                carrera        = carrera,
+                phone          = phone,
+                birthDate      = birthDate
             )
             _saveState.value = repository.saveUserInfo(user)
         }

@@ -45,12 +45,22 @@
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/logo_fca_desc"/>
+
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mi perfil"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="12sp"
+                    android:letterSpacing="0.1"/>
             </LinearLayout>
 
-            <!-- Avatar con iniciales -->
+            <!-- Avatar -->
             <LinearLayout
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:background="@drawable/bg_avatar"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal">
@@ -60,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/primary"
-                    android:textSize="26sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -68,14 +78,14 @@
                 android:id="@+id/tvNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="14dp"
                 android:textColor="@color/on_primary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/tvUsername"
+                android:id="@+id/tvCarrera"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -99,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="16dp"
+                android:padding="20dp"
                 android:gravity="center_vertical">
 
                 <LinearLayout
@@ -120,19 +130,19 @@
                         android:id="@+id/tvNumCuenta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="6dp"
                         android:textColor="@color/on_primary"
-                        android:textSize="22sp"
+                        android:textSize="26sp"
                         android:textStyle="bold"
-                        android:letterSpacing="0.05"/>
+                        android:letterSpacing="0.08"/>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/logos_blanco_unam"
-                    android:alpha="0.4"
+                    android:alpha="0.35"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:contentDescription="UNAM"/>
@@ -154,7 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -171,14 +181,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="14dp">
+                    android:paddingVertical="10dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Correo"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/text_secondary"/>
 
                     <TextView
@@ -186,12 +196,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/on_surface"
                         android:gravity="end"
                         android:ellipsize="end"
                         android:maxLines="1"/>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider"/>
 
                 <!-- Teléfono -->
                 <LinearLayout
@@ -199,14 +214,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="14dp">
+                    android:paddingVertical="10dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Teléfono"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/text_secondary"/>
 
                     <TextView
@@ -214,24 +229,30 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/on_surface"
                         android:gravity="end"/>
                 </LinearLayout>
 
-                <!-- Fecha de nacimiento -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/divider"/>
+
+                <!-- Fecha nacimiento -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:paddingVertical="10dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Nacimiento"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/text_secondary"/>
 
                     <TextView
@@ -239,7 +260,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="13sp"
+                        android:textSize="14sp"
                         android:textColor="@color/on_surface"
                         android:gravity="end"/>
                 </LinearLayout>
@@ -247,21 +268,91 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botón logout -->
+        <!-- Botón cerrar sesión -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="56dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="32dp"
             android:text="Cerrar sesión"
+            android:textSize="16sp"
             android:textColor="@color/error"
             app:strokeColor="@color/error"
             app:strokeWidth="1.5dp"
-            app:cornerRadius="12dp"
+            app:cornerRadius="14dp"
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:backgroundTint="@android:color/transparent"/>
 
     </LinearLayout>
+
+    <!-- Card horario guardado -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardHorario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="@color/surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MI HORARIO SELECCIONADO"
+                android:textSize="10sp"
+                android:letterSpacing="0.15"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvHorarioDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Grid del horario -->
+            <android.widget.HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:id="@+id/containerGridHorario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </android.widget.HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MATERIAS INSCRITAS"
+                android:textSize="10sp"
+                android:letterSpacing="0.15"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:id="@+id/containerMateriasHorario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </ScrollView>

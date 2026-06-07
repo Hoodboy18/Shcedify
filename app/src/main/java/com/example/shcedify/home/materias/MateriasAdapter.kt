@@ -9,11 +9,25 @@ import com.example.shcedify.core.model.Materia
 import com.example.shcedify.databinding.ItemMateriaBinding
 
 class MateriasAdapter(
-    private val onItemClick: (Materia) -> Unit = {}
-): ListAdapter<Materia, MateriasAdapter.MateriaViewHolder>(DIFF) {
+    private val onClick: (Materia) -> Unit
+) : ListAdapter<Materia, MateriasAdapter.MateriaViewHolder>(DiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): MateriaViewHolder {
-        val binding = ItemMateriaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    inner class MateriaViewHolder(private val binding: ItemMateriaBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(materia: Materia) {
+            binding.tvNombre.text   = materia.nombre
+            binding.tvClave.text    = materia.clave
+            binding.tvArea.text     = materia.area
+            binding.tvCreditos.text = "${materia.creditos} créditos"
+            binding.root.setOnClickListener { onClick(materia) }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MateriaViewHolder {
+        val binding = ItemMateriaBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return MateriaViewHolder(binding)
     }
 
@@ -21,22 +35,8 @@ class MateriasAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class MateriaViewHolder(
-        private val binding: ItemMateriaBinding
-    ): RecyclerView.ViewHolder(binding.root) {
-        fun bind(materia: Materia) {
-            binding.tvNombre.text = materia.nombre
-            binding.tvClave.text = materia.clave
-            binding.root.setOnClickListener { onItemClick(materia) }
-        }
-    }
-
-    companion object {
-        private val DIFF = object: DiffUtil.ItemCallback<Materia>() {
-            override fun areItemsTheSame(oldItem: Materia, newItem: Materia) =
-                oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Materia, newItem: Materia) =
-                oldItem == newItem
-        }
+    companion object DiffCallback : DiffUtil.ItemCallback<Materia>() {
+        override fun areItemsTheSame(a: Materia, b: Materia) = a.id == b.id
+        override fun areContentsTheSame(a: Materia, b: Materia) = a == b
     }
 }

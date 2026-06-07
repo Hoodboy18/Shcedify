@@ -40,16 +40,25 @@ class accountFragment : Fragment() {
             .get()
             .addOnSuccessListener { doc ->
                 if (doc.exists()) {
-                    val firstName = doc.getString("firstName") ?: ""
-                    val lastName  = doc.getString("lastName")  ?: ""
-                    val userName  = doc.getString("userName")  ?: ""
-                    val phone     = doc.getString("phone")     ?: "—"
-                    val birthDate = doc.getString("birthDate") ?: "—"
+                    val firstName      = doc.getString("firstName")      ?: ""
+                    val lastName       = doc.getString("lastName")        ?: ""
+                    val numCuenta      = doc.getString("numCuenta")       ?: "—"
+                    val phone          = doc.getString("phone")           ?: "—"
+                    val birthDate      = doc.getString("birthDate")       ?: "—"
 
-                    binding.tvNombre.text    = "$firstName $lastName".trim().ifEmpty { "—" }
-                    binding.tvUsername.text  = if (userName.isNotEmpty()) "@$userName" else "—"
+                    val fullName = "$firstName $lastName".trim()
+                    binding.tvNombre.text    = fullName.ifEmpty { "—" }
+                    binding.tvUsername.text  = "Facultad de Contaduría y Administración"
+                    binding.tvNumCuenta.text = numCuenta
                     binding.tvPhone.text     = phone
                     binding.tvBirthdate.text = birthDate
+
+                    // Iniciales para el avatar
+                    val initials = buildString {
+                        if (firstName.isNotEmpty()) append(firstName.first().uppercaseChar())
+                        if (lastName.isNotEmpty())  append(lastName.first().uppercaseChar())
+                    }
+                    binding.tvInitials.text = initials.ifEmpty { "?" }
                 }
             }
     }

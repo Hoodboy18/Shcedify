@@ -79,7 +79,11 @@ class HorarioFragment : Fragment() {
     private fun generarHorario() {
         val importantes = SeleccionManager.getImportantes()
         val normales    = SeleccionManager.getNormales()
-        val horarios    = HorarioGenerator.generarHorarios(importantes, normales)
+        val horarios = HorarioGenerator.generarHorarios(importantes, normales)
+            .sortedWith(compareBy(
+                { it.tieneTraslape },
+                { -it.materias.count { m -> m.esImportante } }
+            ))
 
         binding.containerHorarios.removeAllViews()
 
@@ -175,7 +179,7 @@ class HorarioFragment : Fragment() {
         FirebaseFirestore.getInstance()
             .collection("users")
             .document(uid)
-            .update(data as Map<String, Any>)
+            .set(data as Map<String, Any>, com.google.firebase.firestore.SetOptions.merge())
             .addOnSuccessListener {
                 Snackbar.make(
                     binding.root,

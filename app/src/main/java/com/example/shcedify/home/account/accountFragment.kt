@@ -13,15 +13,24 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.example.shcedify.core.FragmentCommunicator
+import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentAccountBinding
 import com.example.shcedify.onboarding.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
 
 class accountFragment : Fragment() {
 
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<AccountViewModel>()
+    private lateinit var communicator: FragmentCommunicator
 
     private val dias = listOf("Lunes","Martes","Miércoles","Jueves","Viernes","Sábado")
     private val horas = listOf("07:00","08:00","09:00","10:00","11:00",
@@ -35,60 +44,66 @@ class accountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAccountBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as FragmentCommunicator
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadUserData()
         binding.btnLogout.setOnClickListener { logout() }
+        observeState()
+        viewModel.load()
     }
 
-    private fun loadUserData() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        binding.tvEmail.text = FirebaseAuth.getInstance().currentUser?.email ?: "—"
+    override fun onResume() {
+        super.onResume()
+        viewModel.load()
+    }
 
-        FirebaseFirestore.getInstance()
-            .collection("users")
-            .document(uid)
-            .get()
-            .addOnSuccessListener { doc ->
-                if (doc.exists()) {
-                    val firstName  = doc.getString("firstName")  ?: ""
-                    val lastName   = doc.getString("lastName")   ?: ""
-                    val numCuenta  = doc.getString("numCuenta")  ?: "—"
-                    val carrera    = doc.getString("carrera")    ?: "—"
-                    val phone      = doc.getString("phone")      ?: "—"
-                    val birthDate  = doc.getString("birthDate")  ?: "—"
-
-                    val fullName = "$firstName $lastName".trim()
-                    binding.tvNombre.text    = fullName.ifEmpty { "—" }
-                    binding.tvCarrera.text   = carrera
-                    binding.tvNumCuenta.text = numCuenta
-                    binding.tvPhone.text     = phone
-                    binding.tvBirthdate.text = birthDate
-
-                    val initials = buildString {
-                        if (firstName.isNotEmpty()) append(firstName.first().uppercaseChar())
-                        if (lastName.isNotEmpty())  append(lastName.first().uppercaseChar())
-                    }
-                    binding.tvInitials.text = initials.ifEmpty { "?" }
-
-                    try {
-                        @Suppress("UNCHECKED_CAST")
-                        val horarioData = doc.get("horarioGuardado") as? List<Map<String, Any>>
-                        val descripcion = doc.getString("descripcion") ?: ""
-                        if (!horarioData.isNullOrEmpty()) {
-                            mostrarHorarioGuardado(horarioData, descripcion)
+    private fun observeState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.accountState.collect { state ->
+                    when (state) {
+                        is ResponseService.Loading -> communicator.manageLoader(true)
+                        is ResponseService.Success -> {
+                            communicator.manageLoader(false)
+                            bindData(state.data)
                         }
-                    } catch (e: Exception) {
-
+                        is ResponseService.Error -> {
+                            communicator.manageLoader(false)
+                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
+                        }
+                        null -> Unit
                     }
                 }
             }
+        }
     }
 
-    @Suppress("UNCHECKED_CAST")
+    private fun bindData(data: AccountData) {
+        val p = data.profile
+        val fullName = "${p.firstName} ${p.lastName}".trim()
+        binding.tvNombre.text    = fullName.ifEmpty { "—" }
+        binding.tvCarrera.text   = p.carrera.ifEmpty { "—" }
+        binding.tvNumCuenta.text = p.numCuenta.ifEmpty { "—" }
+        binding.tvEmail.text     = data.email
+        binding.tvPhone.text     = p.phone.ifEmpty { "—" }
+        binding.tvBirthdate.text = p.birthDate.ifEmpty { "—" }
+
+        val initials = buildString {
+            if (p.firstName.isNotEmpty()) append(p.firstName.first().uppercaseChar())
+            if (p.lastName.isNotEmpty())  append(p.lastName.first().uppercaseChar())
+        }
+        binding.tvInitials.text = initials.ifEmpty { "?" }
+
+        if (data.horarioGuardado.isNotEmpty()) {
+            mostrarHorarioGuardado(data.horarioGuardado, data.descripcionHorario)
+        } else {
+            binding.cardHorario.isVisible = false
+        }
+    }
+
     private fun mostrarHorarioGuardado(
         materiasData: List<Map<String, Any>>,
         descripcion: String
@@ -96,16 +111,13 @@ class accountFragment : Fragment() {
         binding.cardHorario.isVisible = true
         binding.tvHorarioDescripcion.text = descripcion.ifEmpty { "Horario seleccionado" }
 
-        // Construir grid
         binding.containerGridHorario.removeAllViews()
         val table = buildGridDesdeFirestore(materiasData)
         binding.containerGridHorario.addView(table)
 
-        // Construir lista de materias
         binding.containerMateriasHorario.removeAllViews()
         materiasData.forEachIndexed { index, m ->
-            val itemView = buildMateriaItemCuenta(m, index)
-            binding.containerMateriasHorario.addView(itemView)
+            binding.containerMateriasHorario.addView(buildMateriaItem(m, index))
         }
     }
 
@@ -124,10 +136,9 @@ class accountFragment : Fragment() {
         }
 
         val table = TableLayout(requireContext()).apply {
-            setPadding((4 * dp).toInt(), (4 * dp).toInt(), (4 * dp).toInt(), (4 * dp).toInt())
+            setPadding((4*dp).toInt(), (4*dp).toInt(), (4*dp).toInt(), (4*dp).toInt())
         }
 
-        // Header
         val headerRow = TableRow(requireContext())
         headerRow.addView(makeCell("", 52, true, "#FFFFFF"))
         diasPresentes.forEach { dia ->
@@ -135,7 +146,6 @@ class accountFragment : Fragment() {
         }
         table.addView(headerRow)
 
-        // Filas de horas
         for (i in 0 until horas.size - 1) {
             val horaInicio = horas[i]
             val row = TableRow(requireContext())
@@ -162,71 +172,55 @@ class accountFragment : Fragment() {
             }
             table.addView(row)
         }
-
         return table
     }
 
     @Suppress("UNCHECKED_CAST")
-    private fun buildMateriaItemCuenta(m: Map<String, Any>, index: Int): View {
+    private fun buildMateriaItem(m: Map<String, Any>, index: Int): View {
         val dp = resources.displayMetrics.density
         val color = colores[index % colores.size]
 
         val container = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
-            setBackgroundColor(android.graphics.Color.parseColor(color))
-            val r = (12 * dp).toInt()
             background = android.graphics.drawable.GradientDrawable().apply {
                 setColor(android.graphics.Color.parseColor(color))
                 cornerRadius = 12 * dp
             }
             val mb = (10 * dp).toInt()
-            val params = LinearLayout.LayoutParams(
+            layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { setMargins(0, 0, 0, mb) }
-            layoutParams = params
-            setPadding((12 * dp).toInt(), (12 * dp).toInt(), (12 * dp).toInt(), (12 * dp).toInt())
+            setPadding((12*dp).toInt(), (12*dp).toInt(), (12*dp).toInt(), (12*dp).toInt())
         }
 
         val esImportante = m["esImportante"] as? Boolean ?: false
         val nombre = (m["nombre"] as? String ?: "") + if (esImportante) " ⭐" else ""
 
-        val tvNombre = TextView(requireContext()).apply {
-            text = nombre
-            textSize = 14f
-            setTypeface(null, Typeface.BOLD)
-            setTextColor(android.graphics.Color.parseColor("#1A3A6B"))
+        listOf(
+            nombre to Pair(14f, Typeface.BOLD),
+            "Clave: ${m["clave"]}  ·  ${m["creditos"]} créditos  ·  ${m["area"]}" to Pair(12f, Typeface.NORMAL),
+            "Grupo ${m["numeroGrupo"]}  ·  ${m["profesor"]}" to Pair(12f, Typeface.NORMAL)
+        ).forEachIndexed { i, (text, style) ->
+            container.addView(TextView(requireContext()).apply {
+                this.text = text
+                textSize = style.first
+                setTypeface(null, style.second)
+                setTextColor(android.graphics.Color.parseColor("#1A3A6B"))
+                if (i > 0) setPadding(0, (3*dp).toInt(), 0, 0)
+            })
         }
-        container.addView(tvNombre)
-
-        val tvClave = TextView(requireContext()).apply {
-            text = "Clave: ${m["clave"] as? String ?: "—"}  ·  ${m["creditos"]} créditos  ·  ${m["area"] as? String ?: "—"}"
-            textSize = 12f
-            setTextColor(android.graphics.Color.parseColor("#444444"))
-            setPadding(0, (4 * dp).toInt(), 0, 0)
-        }
-        container.addView(tvClave)
-
-        val tvGrupo = TextView(requireContext()).apply {
-            text = "Grupo ${m["numeroGrupo"] as? String ?: "—"}  ·  ${m["profesor"] as? String ?: "—"}"
-            textSize = 12f
-            setTextColor(android.graphics.Color.parseColor("#444444"))
-            setPadding(0, (2 * dp).toInt(), 0, 0)
-        }
-        container.addView(tvGrupo)
 
         val sesiones = m["sesiones"] as? List<Map<String, Any>> ?: emptyList()
-        val sesionesText = sesiones.joinToString("  |  ") { s ->
-            "${(s["dia"] as? String ?: "").take(3)} ${s["horaInicio"]}–${s["horaFin"]}"
-        }
-        val tvSesiones = TextView(requireContext()).apply {
-            text = sesionesText
+        container.addView(TextView(requireContext()).apply {
+            text = sesiones.joinToString("  |  ") { s ->
+                "${(s["dia"] as? String ?: "").take(3)} ${s["horaInicio"]}–${s["horaFin"]}"
+            }
             textSize = 11f
             typeface = Typeface.MONOSPACE
             setTextColor(android.graphics.Color.parseColor("#555555"))
-            setPadding(0, (4 * dp).toInt(), 0, 0)
-        }
-        container.addView(tvSesiones)
+            setPadding(0, (4*dp).toInt(), 0, 0)
+        })
 
         return container
     }
@@ -243,11 +237,8 @@ class accountFragment : Fragment() {
             setTextColor(android.graphics.Color.parseColor(textColor))
             setBackgroundColor(android.graphics.Color.parseColor(bgColor))
             gravity = Gravity.CENTER
-            layoutParams = TableRow.LayoutParams(
-                (widthDp * dp).toInt(),
-                (28 * dp).toInt()
-            )
-            setPadding((2 * dp).toInt(), (2 * dp).toInt(), (2 * dp).toInt(), (2 * dp).toInt())
+            layoutParams = TableRow.LayoutParams((widthDp*dp).toInt(), (28*dp).toInt())
+            setPadding((2*dp).toInt(), (2*dp).toInt(), (2*dp).toInt(), (2*dp).toInt())
         }
     }
 

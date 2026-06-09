@@ -202,7 +202,7 @@
                 <!-- Carrera * -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilCarrera"
-                    style="@style/MainTextInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -210,16 +210,14 @@
                     app:startIconDrawable="@android:drawable/ic_menu_agenda"
                     app:startIconTint="@color/primary"
                     app:boxStrokeColor="@color/primary"
-                    app:hintTextColor="@color/primary"
-                    app:endIconMode="dropdown_menu">
+                    app:hintTextColor="@color/primary">
 
                     <AutoCompleteTextView
                         android:id="@+id/etCarrera"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="none"
-                        android:focusable="false"
-                        android:cursorVisible="false"/>
+                        android:background="@android:color/transparent"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 

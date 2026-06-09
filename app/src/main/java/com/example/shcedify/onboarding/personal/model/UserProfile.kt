@@ -1,5 +1,8 @@
 package com.example.shcedify.onboarding.personal.model
 
+import com.google.firebase.firestore.IgnoreExtraProperties
+
+@IgnoreExtraProperties
 data class UserProfile(
     val id: String = "",
     val firstName: String = "",

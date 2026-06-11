@@ -50,7 +50,14 @@ class accountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnLogout.setOnClickListener { logout() }
+        binding.cardLogout.setOnClickListener {
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Seguro que quieres salir de Schedify?")
+                .setPositiveButton("Sí, salir") { _, _ -> logout() }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
         observeState()
         viewModel.load()
     }

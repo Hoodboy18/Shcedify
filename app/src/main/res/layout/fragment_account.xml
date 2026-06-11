@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="#F8F9FA"
     android:fillViewport="true">
 
     <LinearLayout
@@ -11,87 +11,93 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Header -->
+        <!-- Header con gradiente y esquinas redondeadas -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@drawable/bg_header_blue"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="32dp">
+            android:paddingTop="24dp"
+            android:paddingBottom="36dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="20dp">
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="16dp">
 
                 <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/logos_blanco_unam"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:contentDescription="@string/logo_unam_desc"/>
+                    android:contentDescription="UNAM"/>
 
                 <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/logos_blanco_fca"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:contentDescription="@string/logo_fca_desc"/>
+                    android:contentDescription="FCA"/>
 
                 <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mi perfil"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="12sp"
-                    android:letterSpacing="0.1"/>
-            </LinearLayout>
-
-            <!-- Avatar -->
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/bg_avatar"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal">
-
-                <TextView
-                    android:id="@+id/tvInitials"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/primary"
-                    android:textSize="28sp"
+                    android:text="Mi cuenta"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
+            <!-- Avatar circular -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#3D1A6B"
+                app:strokeColor="@android:color/white"
+                app:strokeWidth="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvInitials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="34sp"
+                        android:textStyle="bold"/>
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <TextView
                 android:id="@+id/tvNombre"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:textColor="@color/on_primary"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:gravity="center"/>
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tvCarrera"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="#B0FFFFFF"
-                android:textSize="14sp"
-                android:gravity="center"/>
+                android:layout_marginTop="2dp"
+                android:textColor="#B0D4FF"
+                android:textSize="13sp"/>
 
         </LinearLayout>
 
@@ -99,17 +105,19 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/primary">
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/primary"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="20dp"
+                android:padding="18dp"
                 android:gravity="center_vertical">
 
                 <LinearLayout
@@ -123,144 +131,119 @@
                         android:layout_height="wrap_content"
                         android:text="NÚMERO DE CUENTA"
                         android:textSize="10sp"
-                        android:letterSpacing="0.15"
+                        android:letterSpacing="0.12"
                         android:textColor="#B0FFFFFF"/>
 
                     <TextView
                         android:id="@+id/tvNumCuenta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:textColor="@color/on_primary"
-                        android:textSize="26sp"
+                        android:layout_marginTop="4dp"
+                        android:textColor="@android:color/white"
+                        android:textSize="24sp"
                         android:textStyle="bold"
-                        android:letterSpacing="0.08"/>
-
+                        android:letterSpacing="0.06"/>
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:src="@drawable/logos_blanco_unam"
-                    android:alpha="0.35"
+                    android:alpha="0.4"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:contentDescription="UNAM"/>
-
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Card datos personales -->
+        <!-- Sección datos personales -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:text="INFORMACIÓN PERSONAL"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp"
+            android:textStyle="bold"/>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/surface">
+            app:cardElevation="0dp"
+            app:strokeColor="#E2E8F0"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DATOS PERSONALES"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.15"
+                    android:text="Correo"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="16dp"/>
+                    android:textSize="11sp"/>
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="10dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Correo"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvEmail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="14sp"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"
-                        android:ellipsize="end"
-                        android:maxLines="1"/>
-                </LinearLayout>
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="1"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/divider"/>
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="#E2E8F0"/>
 
-                <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Teléfono"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/tvPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="10dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Teléfono"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvPhone"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="14sp"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"/>
-                </LinearLayout>
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/divider"/>
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="12dp"
+                    android:background="#E2E8F0"/>
 
-                <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de nacimiento"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/tvBirthdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingVertical="10dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Nacimiento"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"/>
-
-                    <TextView
-                        android:id="@+id/tvBirthdate"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="14sp"
-                        android:textColor="@color/on_surface"
-                        android:gravity="end"/>
-                </LinearLayout>
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -270,26 +253,28 @@
             android:id="@+id/cardHorario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
             app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="@color/surface">
+            app:cardElevation="0dp"
+            app:strokeColor="#E2E8F0"
+            app:strokeWidth="1dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="16dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="MI HORARIO SELECCIONADO"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.15"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.12"
                     android:textColor="@color/text_secondary"
+                    android:textStyle="bold"
                     android:layout_marginBottom="4dp"/>
 
                 <TextView
@@ -314,13 +299,20 @@
 
                 </android.widget.HorizontalScrollView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E2E8F0"
+                    android:layout_marginBottom="12dp"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="MATERIAS INSCRITAS"
-                    android:textSize="10sp"
-                    android:letterSpacing="0.15"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.12"
                     android:textColor="@color/text_secondary"
+                    android:textStyle="bold"
                     android:layout_marginBottom="12dp"/>
 
                 <LinearLayout
@@ -332,22 +324,53 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botón cerrar sesión -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
+        <!-- Card logout estilo GameVault -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardLogout"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="32dp"
-            android:text="Cerrar sesión"
-            android:textSize="16sp"
-            android:textColor="@color/error"
-            app:strokeColor="@color/error"
-            app:strokeWidth="1.5dp"
-            app:cornerRadius="14dp"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            app:backgroundTint="@android:color/transparent"/>
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#FEF2F2"
+            app:strokeColor="#FECACA"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_logout"
+                    android:contentDescription="Cerrar sesión"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="Cerrar sesión"
+                    android:textColor="#EF4444"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="24dp"
+            android:text="Schedify v1.0 · FCA UNAM"
+            android:textColor="@color/text_secondary"
+            android:textSize="10sp"/>
 
     </LinearLayout>
 </ScrollView>

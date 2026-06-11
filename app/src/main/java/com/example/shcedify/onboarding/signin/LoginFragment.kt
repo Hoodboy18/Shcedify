@@ -1,10 +1,10 @@
 package com.example.shcedify.onboarding.signin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,56 +12,49 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.shcedify.R
-import com.example.shcedify.onboarding.signin.SignInViewModel
 import com.example.shcedify.core.FragmentCommunicator
 import com.example.shcedify.core.ResponseService
 import com.example.shcedify.databinding.FragmentLoginBinding
+import com.example.shcedify.home.HomeActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
+
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<SignInViewModel>()
     private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         communicator = requireActivity() as FragmentCommunicator
-        setupValidation()
         setupClickListeners()
         observeState()
         return binding.root
     }
 
-    private fun setupValidation() {
-        binding.btnLogin.isEnabled = false
-        binding.etEmail.addTextChangedListener { validateAndEnable() }
-        binding.etPassword.addTextChangedListener { validateAndEnable() }
-    }
-
-    private fun validateAndEnable() {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString().trim()
-
-        binding.tilEmail.error = viewModel.validateEmail(email)
-        binding.tilPassword.error = viewModel.validatePassword(password)
-        binding.btnLogin.isEnabled = viewModel.isLoginFormValid(email, password)
-    }
-
     private fun setupClickListeners() {
         binding.btnLogin.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
-            val password = binding.etPassword.text.toString().trim()
-            viewModel.requestLogin(email, password)
+            val pass  = binding.etPassword.text.toString().trim()
+            val emailErr = viewModel.validateEmail(email)
+            val passErr  = viewModel.validatePassword(pass)
+            binding.tilEmail.error    = emailErr
+            binding.tilPassword.error = passErr
+            if (emailErr == null && passErr == null) {
+                viewModel.requestLogin(email, pass)
+            }
         }
-        binding.btnRegister.setOnClickListener {
+
+        binding.tvGoToRegister.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_register)
         }
-        binding.btnForgot.setOnClickListener {
+
+        binding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_login_to_forgot)
         }
     }
@@ -77,17 +70,16 @@ class LoginFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            val intent = android.content.Intent(requireContext(),
-                                com.example.shcedify.home.HomeActivity::class.java)
-                            intent.flags = android.content.Intent.FLAG_ACTIVITY_NEW_TASK or
-                                    android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+                            startActivity(
+                                Intent(requireContext(), HomeActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                            )
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
                             binding.btnLogin.isEnabled = true
-                            Snackbar.make(binding.root, state.error,
-                                Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
                         }
                         null -> Unit
                     }

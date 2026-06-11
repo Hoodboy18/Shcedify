@@ -21,7 +21,7 @@
 
         <action
             android:id="@+id/action_login_to_home"
-            app:destination="@id/homeFragment"
+            app:destination="@id/homeActivity"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -51,15 +51,13 @@
 
         <action
             android:id="@+id/action_personal_info_to_home"
-            app:destination="@id/homeFragment"
+            app:destination="@id/homeActivity"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.shcedify.HomeFragment"
-        android:label="Inicio"
-        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.example.shcedify.home.HomeActivity" />
 
 </navigation>
